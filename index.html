@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ChegaPronto — Sistema de Gestão e Atendimento</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="icon" type="image/jpeg" href="img/logo.jpeg">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header id="appHeader" class="app-header" style="display: none;">
+    <div class="brand">
+      <div class="brand-symbol">
+        <img src="img/logo.jpeg" alt="ChegaPronto" class="brand-logo-image" />
+      </div>
+      <div class="brand-text">
+        <span class="brand-name">Chega<b>Pronto</b></span>
+        <span class="brand-tagline">Prontidão Médica Preditiva</span>
+      </div>
+    </div>
+    <nav class="nav-links" id="navLinks"></nav>
+  </header>
+
+  <main class="container">
+    <section id="view-login" class="view-section active">
+      <div class="login-wrapper">
+        <div class="login-header">
+          <div class="hero-icon-badge">
+            <img src="img/logo.jpeg" alt="ChegaPronto" class="brand-logo-image login-logo" />
+          </div>
+          <h1>Chega<b>Pronto</b></h1>
+          <p class="subtitle">Acesse o portal de prontidão preditiva</p>
+        </div>
+
+        <div class="card">
+          <label class="form-group label" style="margin-bottom: 0.5rem; display: block;">Selecione o perfil de acesso:</label>
+          <div class="role-selector">
+            <div id="role-paciente" class="role-card selected">
+              <i data-lucide="user" size="24"></i>
+              <div class="role-title">Paciente</div>
+              <div class="role-sub">Agendamentos & Dados</div>
+            </div>
+            <div id="role-atendente" class="role-card">
+              <div class="role-title">Atendente</div>
+              <div class="role-sub">Central de Recepção</div>
+            </div>
+          </div>
+
+          <form id="loginForm">
+            <div class="form-group">
+              <label for="loginUser">E-mail ou Usuário</label>
+              <input type="text" id="loginUser" class="form-control" value="victor.santos@email.com" required>
+            </div>
+            <div class="form-group">
+              <label for="loginPass">Senha</label>
+              <input type="password" id="loginPass" class="form-control" value="••••••••" required>
+            </div>
+            <button type="submit" class="btn btn-primary btn-full btn-lg">
+              Entrar no Sistema <i data-lucide="arrow-right" size="18"></i>
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <section id="view-paciente-dash" class="view-section">
+      <div class="card card-hero-status">
+        <div class="hero-status-header">
+          <div>
+            <span class="hero-label">PAINEL DE PRONTIDÃO</span>
+            <h2 id="hero-status-title" class="hero-title">Atenção: Inconsistência no Convênio</h2>
+          </div>
+          <div id="readiness-gauge" class="readiness-gauge amber">
+            <span id="gauge-score">75%</span>
+          </div>
+        </div>
+
+        <div class="validation-checklist">
+          <div class="check-item verified"><i data-lucide="check-circle-2" size="16"></i> Dados Pessoais</div>
+          <div class="check-item verified"><i data-lucide="check-circle-2" size="16"></i> Endereço</div>
+          <div id="check-convenio-item" class="check-item warning"><i data-lucide="alert-triangle" size="16"></i> Validade da Carteirinha</div>
+        </div>
+
+        <div class="hero-action-footer">
+          <span id="dash-status-sub" class="hero-footer-text">Sua carteirinha está com data expirada no sistema. Regularize para liberar seu atendimento sem filas.</span>
+          <button id="btnRevisarDados" class="btn btn-amber">
+            <i data-lucide="edit-3" size="16"></i> Revisar Dados Agora
+          </button>
+        </div>
+      </div>
+
+      <div class="dashboard-grid">
+        <div class="card">
+          <div class="card-header-flex">
+            <span class="hero-label">PRÓXIMO ATENDIMENTO</span>
+            <span class="badge badge-warning">Aguardando Validação</span>
+          </div>
+          <h3 id="dash-especialidade" class="card-title-lg">Cardiologia — Consulta Geral</h3>
+          <p id="dash-medico" style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.2rem;">Dr. Roberto Alves · Unidade Central</p>
+
+          <div class="info-metrics-grid">
+            <div class="metric-unit">
+              <i data-lucide="calendar" size="18"></i>
+              <div>
+                <label>Data</label>
+                <span id="dash-data">14/09/2026</span>
+              </div>
+            </div>
+            <div class="metric-unit">
+              <i data-lucide="clock" size="18"></i>
+              <div>
+                <label>Horário</label>
+                <span id="dash-hora">09:30</span>
+              </div>
+            </div>
+            <div class="metric-unit">
+              <i data-lucide="credit-card" size="18"></i>
+              <div>
+                <label>Pagamento</label>
+                <span id="dash-pagamento">Bradesco Saúde</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-actions-row">
+            <button id="btnOpenAgendarAlt" class="btn btn-outline btn-full">Reagendar</button>
+            <button id="btnOpenEditarDados" class="btn btn-primary btn-full">Atualizar Carteirinha</button>
+          </div>
+        </div>
+
+        <div class="card card-flush">
+          <div class="card-header-text">Ações Rápidas</div>
+          <div class="shortcut-item" id="btnOpenAgendar">
+            <div class="shortcut-label">
+              <div class="icon-circle"><i data-lucide="calendar-plus" size="18"></i></div>
+              <div>
+                <strong>Novo Agendamento</strong>
+                <p style="font-size: 0.75rem; color: var(--text-muted);">Marque consultas ou exames</p>
+              </div>
+            </div>
+            <i data-lucide="chevron-right" size="18" style="color: var(--text-muted);"></i>
+          </div>
+
+          <div class="shortcut-item" onclick="navigate('meus-dados')">
+            <div class="shortcut-label">
+              <div class="icon-circle"><i data-lucide="user-check" size="18"></i></div>
+              <div>
+                <strong>Meus Dados Cadastrais</strong>
+                <p style="font-size: 0.75rem; color: var(--text-muted);">Visualize e altere suas informações</p>
+              </div>
+            </div>
+            <i data-lucide="chevron-right" size="18" style="color: var(--text-muted);"></i>
+          </div>
+
+          <div class="shortcut-item" id="goConvenios">
+            <div class="shortcut-label">
+              <div class="icon-circle"><i data-lucide="shield" size="18"></i></div>
+              <div>
+                <strong>Convênios Aceitos</strong>
+                <p style="font-size: 0.75rem; color: var(--text-muted);">Consulte operadoras credenciadas</p>
+              </div>
+            </div>
+            <i data-lucide="chevron-right" size="18" style="color: var(--text-muted);"></i>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="view-meus-dados" class="view-section">
+      <div class="page-top-bar">
+        <button class="btn btn-outline btn-sm" onclick="navigate('paciente-dash')">
+          <i data-lucide="arrow-left" size="16"></i> Voltar ao Início
+        </button>
+      </div>
+
+      <div class="page-header" style="margin-top: 1rem;">
+        <div>
+          <h2>Meus Dados Cadastrais</h2>
+          <p class="subtitle">Confira suas informações registradas no sistema da clínica</p>
+        </div>
+        <button class="btn btn-primary" onclick="openModal('modalEditarDados')">
+          <i data-lucide="edit" size="16"></i> Editar Cadastro
+        </button>
+      </div>
+
+      <div class="card">
+        <div class="data-vertical-list">
+          <div class="data-field-item">
+            <i data-lucide="user" size="20"></i>
+            <div class="field-meta">
+              <label>Nome Completo</label>
+              <p id="view-nome">Victor Santos</p>
+            </div>
+          </div>
+          <div class="data-field-item">
+            <i data-lucide="phone" size="20"></i>
+            <div class="field-meta">
+              <label>Telefone para Contato</label>
+              <p id="view-telefone">(11) 98888-2222</p>
+            </div>
+          </div>
+          <div class="data-field-item">
+            <i data-lucide="map-pin" size="20"></i>
+            <div class="field-meta">
+              <label>Endereço Residencial</label>
+              <p><span id="view-rua">Av. Paulista</span>, <span id="view-numero">1000</span> — <span id="view-complemento">Apto 42</span> (CEP: <span id="view-cep">01310-100</span>)</p>
+            </div>
+          </div>
+          <div class="data-field-item">
+            <i data-lucide="shield-check" size="20"></i>
+            <div class="field-meta">
+              <label>Plano de Saúde / Convênio</label>
+              <p><span id="view-operadora">Bradesco Saúde</span> — <span id="view-plano">Nacional Flex</span></p>
+              <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.2rem;">
+                Carteirinha: <strong id="view-carteirinha">0012 3456 78</strong> | Validade: <strong id="view-validade" class="text-danger">01/07/2026 (Expirada)</strong>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-footer-split">
+          <span>Status do Cadastro: <span id="badge-carteirinha" class="badge badge-warning">Ação Necessária</span></span>
+          <span>Última sincronização: Hoje às 10:15</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="view-convenios" class="view-section">
+      <div class="page-top-bar">
+        <button class="btn btn-outline btn-sm" onclick="navigate('paciente-dash')">
+          <i data-lucide="arrow-left" size="16"></i> Voltar ao Início
+        </button>
+      </div>
+
+      <div class="page-header" style="margin-top: 1rem;">
+        <div>
+          <span class="hero-label">Rede Credenciada de Parceiros</span>
+          <h2>Operadoras e Convênios Aceitos</h2>
+        </div>
+      </div>
+
+      <div class="convenio-grid">
+        <div class="card">
+          <div class="card-header-flex">
+            <h3>Bradesco Saúde</h3>
+            <span class="badge badge-success">Credenciado</span>
+          </div>
+          <p style="font-size: 0.85rem; color: var(--text-muted);">Atendimento integral para consultas, exames e procedimentos ambulatoriais.</p>
+          <ul class="cobertura-list">
+            <li><i data-lucide="check" size="14"></i> Plano Efetivo & Flex</li>
+            <li><i data-lucide="check" size="14"></i> Plano Nacional & Top</li>
+            <li><i data-lucide="check" size="14"></i> Autorização Digital Rápida</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <div class="card-header-flex">
+            <h3>Amil Assistência Médica</h3>
+            <span class="badge badge-success">Credenciado</span>
+          </div>
+          <p style="font-size: 0.85rem; color: var(--text-muted);">Cobertura para consultas de especialidades e exames complementares.</p>
+          <ul class="cobertura-list">
+            <li><i data-lucide="check" size="14"></i> Amil Fácil & Linha Selecionada</li>
+            <li><i data-lucide="check" size="14"></i> Cobertura Exames Cardiológicos</li>
+            <li><i data-lucide="check" size="14"></i> Validação por Token no App</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <div class="card-header-flex">
+            <h3>Hapvida / NotreDame Intermédica</h3>
+            <span class="badge badge-success">Credenciado</span>
+          </div>
+          <p style="font-size: 0.85rem; color: var(--text-muted);">Cobertura ampla com atenção em consultas, exames e cuidados preventivos.</p>
+          <ul class="cobertura-list">
+            <li><i data-lucide="check" size="14"></i> Hapvida Mais & Prime</li>
+            <li><i data-lucide="check" size="14"></i> Rede hospitalar e ambulatorial</li>
+            <li><i data-lucide="check" size="14"></i> Validação digital imediata</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <div class="card-header-flex">
+            <h3>Unimed</h3>
+            <span class="badge badge-success">Credenciado</span>
+          </div>
+          <p style="font-size: 0.85rem; color: var(--text-muted);">Rede ampla com suporte para consultas, exames e atenção de urgência.</p>
+          <ul class="cobertura-list">
+            <li><i data-lucide="check" size="14"></i> Plano Empresarial & Individual</li>
+            <li><i data-lucide="check" size="14"></i> Apoio para consultas em rede</li>
+            <li><i data-lucide="check" size="14"></i> Sincronização em tempo real</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="view-atendente-dash" class="view-section workspace-fullscreen-section">
+      <div class="workspace-container">
+        <aside class="sidebar">
+          <div class="logo">
+            <img src="img/logo.jpeg" alt="ChegaPronto" class="brand-logo-image sidebar-logo" />
+            <span>Chega<b>Pronto</b></span>
+          </div>
+
+          <div class="dash-mini">
+            <div class="dash-item success"><i data-lucide="check-circle" size="14"></i> 10 Prontos</div>
+            <div class="dash-item warning"><i data-lucide="alert-triangle" size="14"></i> 2 Pendências</div>
+            <div class="dash-item info"><i data-lucide="calendar" size="14"></i> 12 Agendados</div>
+          </div>
+
+          <nav class="menu-lateral">
+            <a href="#" class="active"><i data-lucide="users" size="16"></i> Fila de Atendimento</a>
+            <a href="#" onclick="navigate('paciente-dash')"><i data-lucide="log-out" size="16"></i> Voltar ao Portal</a>
+          </nav>
+        </aside>
+
+        <section class="patient-queue">
+          <div class="queue-header">
+            <h2>Fila de Hoje</h2>
+            <input type="text" placeholder="Buscar paciente..." class="search-input">
+          </div>
+
+          <div class="patient-list">
+            <div class="patient-card active" data-name="Victor Santos" data-specialty="Cardiologia" data-convenio="Bradesco Saúde" data-age="27" data-status="Carteirinha vencida" data-avatar="VS">
+              <div class="patient-info">
+                <strong>Victor Santos</strong>
+                <span>Cardiologia · Bradesco</span>
+              </div>
+              <span class="status-badge status-warning">Pendente</span>
+            </div>
+
+            <div class="patient-card" data-name="Mariana Costa" data-specialty="Dermatologia" data-convenio="Amil Saúde" data-age="31" data-status="Prontidão OK" data-avatar="MC">
+              <div class="patient-info">
+                <strong>Mariana Costa</strong>
+                <span>Dermatologia · Amil</span>
+              </div>
+              <span class="status-badge status-ready">Pronto</span>
+            </div>
+
+            <div class="patient-card" data-name="Lucas Moreira" data-specialty="Ortopedia" data-convenio="Unimed" data-age="42" data-status="Laudo pendente" data-avatar="LM">
+              <div class="patient-info">
+                <strong>Lucas Moreira</strong>
+                <span>Ortopedia · Unimed</span>
+              </div>
+              <span class="status-badge status-review">Em revisão</span>
+            </div>
+          </div>
+        </section>
+
+        <main class="patient-workspace">
+          <header class="workspace-header">
+            <div class="patient-profile">
+              <div class="avatar" id="current-patient-avatar">VS</div>
+              <div class="details">
+                <h3 id="current-patient-name">Victor Santos</h3>
+                <span id="current-patient-meta">Convênio: Bradesco Saúde • 27 anos • <strong class="text-danger">Carteirinha Vencida</strong></span>
+              </div>
+            </div>
+
+            <div class="workspace-actions">
+              <button class="btn btn-outline btn-sm" type="button" onclick="openModal('modalIaCopilot')">
+                <i data-lucide="bot" size="16"></i> Copilot IA
+              </button>
+            </div>
+          </header>
+
+          <div class="workspace-body">
+            <div class="patient-summary">
+              <div class="summary-item">
+                <span class="summary-label">Consulta</span>
+                <strong>Ortopedia</strong>
+              </div>
+              <div class="summary-item">
+                <span class="summary-label">Data</span>
+                <strong>15/09/2026</strong>
+              </div>
+              <div class="summary-item">
+                <span class="summary-label">Horário</span>
+                <strong>09:30</strong>
+              </div>
+              <div class="summary-item">
+                <span class="summary-label">Pagamento</span>
+                <strong>Convênio</strong>
+              </div>
+            </div>
+
+            <div class="chat-module">
+              <div class="panel-title-row">
+                <h3>Atendimento</h3>
+                <span class="status-online"><i data-lucide="circle" size="8"></i> WhatsApp ativo</span>
+              </div>
+
+              <div class="chat-history" id="chatHistory">
+                <div class="message system-msg">Atendimento iniciado às 09:00.</div>
+                <div class="message patient-msg">
+                  <p>Olá, minha consulta é hoje às 09:30. Vocês receberam meu exame?</p>
+                  <span class="time">09:15 · Paciente</span>
+                </div>
+                <div class="message atendente-msg">
+                  <p>Olá Victor, estamos verificando. Vou anexar o laudo e a receita atualizados por aqui.</p>
+                  <span class="time">09:18 · Atendente</span>
+                </div>
+              </div>
+
+              <div class="chat-input-area">
+                <button id="attach-doc-btn" type="button" class="btn btn-outline btn-sm">
+                  <i data-lucide="paperclip" size="14"></i> Anexo
+                </button>
+                <input id="chat-input" type="text" placeholder="Digite uma mensagem para o paciente...">
+                <button id="chat-send-btn" class="btn btn-primary" type="button"><i data-lucide="send" size="16"></i> Enviar</button>
+              </div>
+              <input type="file" id="attachmentInput" accept=".pdf,image/*" hidden>
+              <div id="attachmentPreview" class="attachment-preview"></div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </section>
+  </main>
+
+  <div id="modalEditarDados" class="modal-backdrop">
+    <div class="modal">
+      <div class="modal-header">
+        <div>
+          <h3>Revisão Cadastral & Convênio</h3>
+          <p class="modal-subtitle">Validação de Divergências Preditivas de Atendimento</p>
+        </div>
+        <button class="modal-close" onclick="closeModal('modalEditarDados')">&times;</button>
+      </div>
+
+      <form id="formEditarDados">
+        <div class="modal-body">
+          <div id="modal-alert-divergencia" class="alert-box danger-box">
+            <i data-lucide="alert-triangle" size="20"></i>
+            <div>
+              <strong>Inconsistência Identificada no Convênio:</strong>
+              <p>A data de validade informada (01/07/2026) está expirada no banco do sistema. Atualize para liberar seu atendimento.</p>
+            </div>
+          </div>
+
+          <div class="form-section-title">Dados Pessoais</div>
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="edit-nome">Nome completo</label>
+              <input id="edit-nome" type="text" class="form-control" value="Victor Santos">
+            </div>
+            <div class="form-group">
+              <label for="edit-telefone">Telefone</label>
+              <input id="edit-telefone" type="text" class="form-control" value="(11) 98888-2222">
+            </div>
+          </div>
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="edit-cep">CEP</label>
+              <input id="edit-cep" type="text" class="form-control" value="01310-100">
+            </div>
+            <div class="form-group">
+              <label for="edit-rua">Rua</label>
+              <input id="edit-rua" type="text" class="form-control" value="Av. Paulista">
+            </div>
+          </div>
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="edit-numero">Número</label>
+              <input id="edit-numero" type="text" class="form-control" value="1000">
+            </div>
+            <div class="form-group">
+              <label for="edit-complemento">Complemento</label>
+              <input id="edit-complemento" type="text" class="form-control" value="Apto 42">
+            </div>
+          </div>
+
+          <div class="form-section-title">Convênio / Carteirinha</div>
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="edit-operadora">Operadora</label>
+              <select id="edit-operadora" class="form-control">
+                <option value="Bradesco Saúde" selected>Bradesco Saúde</option>
+                <option value="Amil">Amil</option>
+                <option value="Unimed">Unimed</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="edit-plano">Plano</label>
+              <input id="edit-plano" type="text" class="form-control" value="Nacional Flex">
+            </div>
+          </div>
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="edit-carteirinha">Número da Carteirinha</label>
+              <input id="edit-carteirinha" type="text" class="form-control" value="0012 3456 78">
+            </div>
+            <div class="form-group field-error" id="group-validade">
+              <label for="edit-validade">Validade</label>
+              <input id="edit-validade" type="date" class="form-control input-danger" value="2026-07-01">
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" onclick="closeModal('modalEditarDados')">Cancelar</button>
+          <button type="submit" class="btn btn-primary">
+            <i data-lucide="check" size="16"></i> Salvar Alterações
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="modalIaCopilot" class="modal-backdrop">
+    <div class="modal">
+      <div class="modal-header">
+        <div class="ai-header-title">
+          <i data-lucide="bot" size="24"></i>
+          <div>
+            <h3>ChegaPronto AI Copilot</h3>
+            <p class="modal-subtitle">Análise preditiva de pré-elegibilidade em tempo real</p>
+          </div>
+        </div>
+        <button class="modal-close" onclick="closeModal('modalIaCopilot')">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="ai-report-card">
+          <span class="ai-badge"><i data-lucide="sparkles" size="14"></i> Diagnóstico Preditivo</span>
+          <p class="ai-summary">Análise do paciente <strong id="copilot-patient-name">Victor Santos</strong> para a consulta de <span id="copilot-specialty">Cardiologia</span> em <span id="copilot-date">14/09/2026</span>.</p>
+
+          <div class="ai-checklist">
+            <div class="ai-check-row success">
+              <i data-lucide="check" size="16"></i> Cadastro de Identidade: VALIDADO
+            </div>
+            <div id="ai-alert-convenio" class="ai-check-row danger">
+              <i data-lucide="x" size="16"></i> Convênio <span id="copilot-convenio">Bradesco Saúde</span>: <span id="copilot-status">CARTEIRINHA EXPIRADA (01/07/2026)</span>
+            </div>
+          </div>
+
+          <div class="ai-recommendation-box">
+            <strong>Recomendação da IA:</strong>
+            <p id="ai-recommendation-text">Utilize o chat integrado para solicitar ao paciente a foto da nova carteirinha ou envie o link de regularização digital.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="closeModal('modalIaCopilot')">Fechar</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="modalAgendar" class="modal-backdrop">
+    <div class="modal">
+      <div class="modal-header">
+        <div>
+          <h3>Novo Agendamento</h3>
+          <p class="modal-subtitle">Selecione especialidade, data e forma de atendimento</p>
+        </div>
+        <button class="modal-close" onclick="closeModal('modalAgendar')">&times;</button>
+      </div>
+
+      <div class="stepper-bar">
+        <div class="step-dot active">1</div>
+        <div class="step-line"></div>
+        <div class="step-dot">2</div>
+      </div>
+
+      <form id="formAgendar">
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="agenda-especialidade">Especialidade Médica</label>
+            <select id="agenda-especialidade" class="form-control">
+              <option value="Cardiologia">Cardiologia</option>
+              <option value="Dermatologia">Dermatologia</option>
+              <option value="Ortopedia">Ortopedia</option>
+              <option value="Clínica Geral">Clínica Geral</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="agenda-medico">Profissional de Saúde</label>
+            <select id="agenda-medico" class="form-control">
+              <option value="Dr. Roberto Alves">Dr. Roberto Alves — Cardiologia</option>
+              <option value="Dra. Camila Rocha">Dra. Camila Rocha — Dermatologia</option>
+            </select>
+          </div>
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="agenda-data">Data Desejada</label>
+              <input type="date" id="agenda-data" class="form-control" value="2026-09-14" required>
+            </div>
+            <div class="form-group">
+              <label for="agenda-hora">Horário</label>
+              <select id="agenda-hora" class="form-control">
+                <option value="09:30">09:30</option>
+                <option value="11:00">11:00</option>
+                <option value="14:15">14:15</option>
+                <option value="16:00">16:00</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="agenda-tipo-pagamento">Forma de Cobertura / Pagamento</label>
+            <select id="agenda-tipo-pagamento" class="form-control">
+              <option value="Bradesco Saúde">Convênio — Bradesco Saúde</option>
+              <option value="Particular">Particular (Consulta Avulsa)</option>
+            </select>
+          </div>
+
+          <div id="group-metodo-particular" class="form-group" style="display: none;">
+            <label>Selecione a forma de pagamento particular:</label>
+            <input type="hidden" id="agenda-metodo-particular" value="Particular — PIX">
+            <div class="payment-cards-grid">
+              <div class="payment-card selected" onclick="selectPaymentMethod(this, 'Particular — PIX')">
+                <i data-lucide="qr-code" size="20" class="payment-icon"></i>
+                <div class="payment-details">
+                  <strong>PIX</strong>
+                  <span>Desconto de 5%</span>
+                </div>
+              </div>
+              <div class="payment-card" onclick="selectPaymentMethod(this, 'Particular — Crédito')">
+                <i data-lucide="credit-card" size="20" class="payment-icon"></i>
+                <div class="payment-details">
+                  <strong>Cartão</strong>
+                  <span>Até 3x sem juros</span>
+                </div>
+              </div>
+              <div class="payment-card" onclick="selectPaymentMethod(this, 'Particular — Dinheiro')">
+                <i data-lucide="banknote" size="20" class="payment-icon"></i>
+                <div class="payment-details">
+                  <strong>Dinheiro</strong>
+                  <span>Pagar na recepção</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" onclick="closeModal('modalAgendar')">Cancelar</button>
+          <button type="submit" class="btn btn-primary">
+            <i data-lucide="calendar-check" size="16"></i> Confirmar Agendamento
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="toast-container" class="toast-container"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
