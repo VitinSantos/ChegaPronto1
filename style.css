@@ -425,11 +425,87 @@ select {
 }
 
 .patient-workspace {
-    display: flex;
+    display: none;
     flex-direction: column;
     min-width: 0;
     background: #F8FAFC;
 }
+
+.patient-workspace.is-open {
+    display: flex;
+    position: fixed;
+    inset: 5.5rem 1.5rem 1.5rem;
+    z-index: 80;
+    border: 1px solid var(--border-color);
+    border-radius: 22px;
+    overflow: hidden;
+    box-shadow: 0 24px 70px rgba(15, 23, 42, 0.2);
+}
+
+.today-agenda {
+    padding: 1rem;
+    border: 1px solid rgba(78, 168, 222, 0.2);
+    border-radius: 16px;
+    background: linear-gradient(135deg, #f4f9ff, #ffffff);
+}
+
+.agenda-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 0.75rem;
+}
+
+.agenda-heading h2 {
+    font-size: 1.12rem;
+    margin-top: 0.25rem;
+}
+
+.agenda-date {
+    color: var(--text-muted);
+    font-size: 0.72rem;
+    white-space: nowrap;
+}
+
+.agenda-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+    margin-top: 0.9rem;
+}
+
+.agenda-stats div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+    padding: 0.55rem;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.8);
+}
+
+.agenda-stats strong {
+    font-size: 1.1rem;
+}
+
+.agenda-stats span {
+    color: var(--text-muted);
+    font-size: 0.68rem;
+}
+
+.close-chat-btn {
+    color: var(--text-muted);
+}
+
+.summary-item {
+    overflow: hidden;
+}
+
+.summary-item strong {
+    overflow-wrap: normal;
+    word-break: normal;
+    white-space: normal;
+}
+
 
 .workspace-header {
     background: linear-gradient(135deg, #F1F7FF 0%, #E9F1FF 100%);
@@ -646,14 +722,18 @@ select {
     align-items: center;
 }
 
-.chat-input-area input {
+.chat-input-area textarea {
     width: 100%;
     min-width: 0;
+    min-height: 88px;
+    resize: vertical;
     background: var(--bg-main);
     border: 1px solid var(--border-color);
     border-radius: 10px;
-    padding: 0.75rem 0.85rem;
-    font-size: 0.8rem;
+    padding: 0.8rem 0.85rem;
+    font: inherit;
+    font-size: 0.85rem;
+    line-height: 1.45;
     color: var(--text-main);
 }
 
@@ -856,10 +936,15 @@ select {
         align-items: stretch;
     }
 
-    .chat-input-area input {
-        min-width: 0;
-        width: 100%;
-    }
+.chat-input-area textarea {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .patient-workspace.is-open {
+    inset: 4.5rem 0.75rem 0.75rem;
+    border-radius: 16px;
+  }
 
     .chat-input-area>button {
         flex: 1 1 48%;

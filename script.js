@@ -79,7 +79,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (chatInput) {
     chatInput.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') sendAtendenteMessage();
+      if (e.key === 'Enter' && !e.shiftKey && !e.nativeEvent?.isComposing && e.keyCode !== 229) {
+        e.preventDefault();
+        sendAtendenteMessage();
+      }
     });
   }
 
@@ -289,6 +292,8 @@ function selectAtendentePatient(card) {
     .forEach(item => item.classList.remove('active'));
 
   card.classList.add('active');
+  const workspace = document.querySelector('.patient-workspace');
+  if (workspace) workspace.classList.add('is-open');
 
   const name =
     card.dataset.name || 'Paciente';
@@ -372,6 +377,11 @@ function selectAtendentePatient(card) {
     statusText,
     '14/09/2026'
   );
+}
+
+function closeAtendenteChat() {
+  const workspace = document.querySelector('.patient-workspace');
+  if (workspace) workspace.classList.remove('is-open');
 }
 
 function sendAtendenteMessage() {

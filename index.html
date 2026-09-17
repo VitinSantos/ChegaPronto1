@@ -319,8 +319,26 @@
         </aside>
 
         <section class="patient-queue">
+          <div class="today-agenda">
+            <div class="agenda-heading">
+              <div>
+                <span class="hero-label">AGENDA DO DIA</span>
+                <h2>Agendamentos de hoje</h2>
+              </div>
+              <span class="agenda-date">15 de setembro</span>
+            </div>
+            <div class="agenda-stats">
+              <div><strong>12</strong><span>Agendados</span></div>
+              <div><strong>10</strong><span>Prontos</span></div>
+              <div><strong>2</strong><span>Pendências</span></div>
+            </div>
+          </div>
+
           <div class="queue-header">
-            <h2>Fila de Hoje</h2>
+            <div>
+              <span class="hero-label">ATENDIMENTO</span>
+              <h2>Fila de Hoje</h2>
+            </div>
             <input type="text" placeholder="Buscar paciente..." class="search-input">
           </div>
 
@@ -362,6 +380,7 @@
             </div>
 
             <div class="workspace-actions">
+              <button class="btn btn-ghost btn-sm close-chat-btn" type="button" onclick="closeAtendenteChat()" aria-label="Fechar atendimento">Voltar à fila</button>
               <button class="btn btn-outline btn-sm" type="button" onclick="openModal('modalIaCopilot')">
                 <i data-lucide="bot" size="16"></i> Copilot IA
               </button>
@@ -410,7 +429,7 @@
                 <button id="attach-doc-btn" type="button" class="btn btn-outline btn-sm">
                   <i data-lucide="paperclip" size="14"></i> Anexo
                 </button>
-                <input id="chat-input" type="text" placeholder="Digite uma mensagem para o paciente...">
+                <textarea id="chat-input" rows="3" placeholder="Digite uma mensagem para o paciente..."></textarea>
                 <button id="chat-send-btn" class="btn btn-primary" type="button"><i data-lucide="send" size="16"></i> Enviar</button>
               </div>
               <input type="file" id="attachmentInput" accept=".pdf,image/*" hidden>
