@@ -306,38 +306,29 @@
             <span>Chega<b>Pronto</b></span>
           </div>
 
+          <div class="atendente-tabs" role="navigation" aria-label="Navegação do atendente">
+            <a href="#" class="atendente-tab"><i data-lucide="home" size="16"></i> Início</a>
+            <a href="#" class="atendente-tab"><i data-lucide="search" size="16"></i> Buscar</a>
+            <a href="#" class="atendente-tab"><i data-lucide="folder-kanban" size="16"></i> Projetos</a>
+            <a href="#" class="atendente-tab active"><i data-lucide="messages-square" size="16"></i> Chat <span class="tab-count">3</span></a>
+          </div>
+
           <div class="dash-mini">
-            <div class="dash-item success"><i data-lucide="check-circle" size="14"></i> 10 Prontos</div>
-            <div class="dash-item warning"><i data-lucide="alert-triangle" size="14"></i> 2 Pendências</div>
-            <div class="dash-item info"><i data-lucide="calendar" size="14"></i> 12 Agendados</div>
+            <div class="dash-item info"><i data-lucide="calendar" size="14"></i> 3 agendados</div>
+            <div class="dash-item success"><i data-lucide="check-circle" size="14"></i> 1 pronto</div>
+            <div class="dash-item warning"><i data-lucide="alert-triangle" size="14"></i> 1 pendência</div>
           </div>
 
           <nav class="menu-lateral">
-            <a href="#" class="active"><i data-lucide="users" size="16"></i> Fila de Atendimento</a>
             <a href="#" onclick="navigate('paciente-dash')"><i data-lucide="log-out" size="16"></i> Voltar ao Portal</a>
           </nav>
         </aside>
 
         <section class="patient-queue">
-          <div class="today-agenda">
-            <div class="agenda-heading">
-              <div>
-                <span class="hero-label">AGENDA DO DIA</span>
-                <h2>Agendamentos de hoje</h2>
-              </div>
-              <span class="agenda-date">15 de setembro</span>
-            </div>
-            <div class="agenda-stats">
-              <div><strong>12</strong><span>Agendados</span></div>
-              <div><strong>10</strong><span>Prontos</span></div>
-              <div><strong>2</strong><span>Pendências</span></div>
-            </div>
-          </div>
-
           <div class="queue-header">
             <div>
               <span class="hero-label">ATENDIMENTO</span>
-              <h2>Fila de Hoje</h2>
+              <h2>Conversas de hoje <span class="queue-count">3</span></h2>
             </div>
             <input type="text" placeholder="Buscar paciente..." class="search-input">
           </div>
