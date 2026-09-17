@@ -222,7 +222,7 @@ select {
 
 .workspace-container {
     display: grid;
-    grid-template-columns: 250px 340px minmax(0, 1fr);
+    grid-template-columns: 220px 350px minmax(0, 1fr);
     width: min(100%, 1680px);
     margin: 0 auto;
     min-height: calc(100vh - 112px);
@@ -425,75 +425,68 @@ select {
 }
 
 .patient-workspace {
-    display: none;
+    display: flex;
     flex-direction: column;
     min-width: 0;
     background: #F8FAFC;
 }
 
 .patient-workspace.is-open {
-    display: flex;
-    position: fixed;
-    inset: 5.5rem 1.5rem 1.5rem;
-    z-index: 80;
-    border: 1px solid var(--border-color);
-    border-radius: 22px;
+    position: static;
+    inset: auto;
+    z-index: auto;
+    border: 0;
+    border-radius: 0;
     overflow: hidden;
-    box-shadow: 0 24px 70px rgba(15, 23, 42, 0.2);
-}
-
-.today-agenda {
-    padding: 1rem;
-    border: 1px solid rgba(78, 168, 222, 0.2);
-    border-radius: 16px;
-    background: linear-gradient(135deg, #f4f9ff, #ffffff);
-}
-
-.agenda-heading {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 0.75rem;
-}
-
-.agenda-heading h2 {
-    font-size: 1.12rem;
-    margin-top: 0.25rem;
-}
-
-.agenda-date {
-    color: var(--text-muted);
-    font-size: 0.72rem;
-    white-space: nowrap;
-}
-
-.agenda-stats {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0.5rem;
-    margin-top: 0.9rem;
-}
-
-.agenda-stats div {
-    display: flex;
-    flex-direction: column;
-    gap: 0.1rem;
-    padding: 0.55rem;
-    border-radius: 10px;
-    background: rgba(255, 255, 255, 0.8);
-}
-
-.agenda-stats strong {
-    font-size: 1.1rem;
-}
-
-.agenda-stats span {
-    color: var(--text-muted);
-    font-size: 0.68rem;
+    box-shadow: none;
 }
 
 .close-chat-btn {
     color: var(--text-muted);
+}
+
+.atendente-tabs {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.atendente-tab {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    border-radius: 10px;
+    padding: 0.7rem 0.75rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.atendente-tab:hover,
+.atendente-tab.active {
+    color: var(--primary);
+    background: var(--primary-light);
+}
+
+.tab-count,
+.queue-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 1.25rem;
+    height: 1.25rem;
+    padding: 0 0.3rem;
+    border-radius: 999px;
+    background: var(--primary);
+    color: #fff;
+    font-size: 0.68rem;
+    margin-left: auto;
+}
+
+.queue-count {
+    vertical-align: middle;
+    margin-left: 0.25rem;
 }
 
 .summary-item {
@@ -936,15 +929,10 @@ select {
         align-items: stretch;
     }
 
-.chat-input-area textarea {
-    min-width: 0;
-    width: 100%;
-  }
-
-  .patient-workspace.is-open {
-    inset: 4.5rem 0.75rem 0.75rem;
-    border-radius: 16px;
-  }
+    .chat-input-area textarea {
+        min-width: 0;
+        width: 100%;
+    }
 
     .chat-input-area>button {
         flex: 1 1 48%;
