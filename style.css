@@ -489,6 +489,36 @@ select {
     margin-left: 0.25rem;
 }
 
+.session-description {
+    margin: 0.45rem 0 0;
+    color: var(--text-muted);
+    font-size: 0.78rem;
+    line-height: 1.45;
+}
+
+#view-atendente-dash[data-session="inicio"] .patient-list,
+#view-atendente-dash[data-session="inicio"] .patient-workspace {
+    display: none;
+}
+
+#view-atendente-dash[data-session="inicio"] .patient-queue {
+    background: linear-gradient(180deg, #f8fbff 0%, #ffffff 42%);
+}
+
+#view-atendente-dash[data-session="inicio"] .queue-header {
+    min-height: 17rem;
+    align-content: start;
+}
+
+#view-atendente-dash[data-session="inicio"] .search-input {
+    visibility: hidden;
+}
+
+#view-atendente-dash[data-session="agendados"] .patient-workspace,
+#view-atendente-dash[data-session="chat"] .patient-workspace {
+    display: flex;
+}
+
 .summary-item {
     overflow: hidden;
 }
