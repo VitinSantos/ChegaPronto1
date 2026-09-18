@@ -299,45 +299,28 @@
     </section>
 
     <section id="view-atendente-dash" class="view-section workspace-fullscreen-section attendant-screen">
-      <div class="attendant-app">
-        <aside class="attendant-rail">
-          <div class="attendant-brand"><img src="img/logo.jpeg" alt="ChegaPronto" /></div>
-          <nav class="attendant-nav" aria-label="Sessões do atendente">
-            <button class="attendant-nav-item is-active" data-session="inicio" onclick="switchAtendenteSession('inicio')"><i data-lucide="layout-dashboard"></i><span>Início</span></button>
-            <button class="attendant-nav-item" data-session="agendados" onclick="switchAtendenteSession('agendados')"><i data-lucide="calendar-days"></i><span>Agendados</span><b>3</b></button>
-            <button class="attendant-nav-item" data-session="chat" onclick="switchAtendenteSession('chat')"><i data-lucide="message-square-text"></i><span>Conversas</span><b>2</b></button>
+      <div class="reception-app">
+        <aside class="reception-sidebar">
+          <div class="reception-logo"><img src="img/logo.jpeg" alt="ChegaPronto" /></div>
+          <nav aria-label="Navegação principal">
+            <button class="reception-nav-item"><i data-lucide="house"></i>Início</button>
+            <button class="reception-nav-item is-active"><i data-lucide="clipboard-list"></i>Recepção</button>
+            <button class="reception-nav-item"><i data-lucide="calendar-days"></i>Agenda</button>
+            <button class="reception-nav-item"><i data-lucide="message-square"></i>Chat <b>3</b></button>
+            <button class="reception-nav-item"><i data-lucide="users"></i>Pacientes</button>
+            <button class="reception-nav-item"><i data-lucide="bar-chart-3"></i>Relatórios</button>
+            <button class="reception-nav-item"><i data-lucide="settings"></i>Configurações</button>
           </nav>
-          <div class="attendant-rail-bottom"><button class="attendant-nav-item" onclick="navigate('paciente-dash')"><i data-lucide="log-out"></i><span>Sair</span></button></div>
+          <div class="reception-side-note"><i data-lucide="shield-check"></i><p>Atendimento rápido,<br>seguro e humanizado.</p></div>
+          <button class="reception-profile" onclick="navigate('paciente-dash')"><span>VS</span><small><strong>Victor Santos</strong>Recepção</small><i data-lucide="chevron-right"></i></button>
         </aside>
-
-        <main class="attendant-main">
-          <header class="attendant-topbar">
-            <div><span class="eyebrow">CENTRAL DE ATENDIMENTO</span><h1 id="attendant-title">Bom dia, equipe</h1></div>
-            <div class="attendant-user"><span class="attendant-user-avatar">AC</span><span><strong>Atendimento Central</strong><small>Online agora</small></span></div>
-          </header>
-
-          <section class="attendant-content" id="attendant-content">
-            <div class="attendant-welcome" id="attendant-welcome">
-              <div><span class="eyebrow">VISÃO GERAL</span><h2>O que precisa da sua atenção hoje?</h2><p>Escolha uma sessão para acompanhar os pacientes e continuar os atendimentos.</p></div>
-              <div class="attendant-date"><i data-lucide="calendar"></i><span>Hoje, 15 de setembro de 2026</span></div>
-            </div>
-            <div class="attendant-metrics">
-              <button onclick="switchAtendenteSession('agendados')"><span class="metric-icon blue"><i data-lucide="calendar-check"></i></span><strong>3</strong><small>Agendados hoje</small><em>Ver agenda <i data-lucide="arrow-up-right"></i></em></button>
-              <button onclick="switchAtendenteSession('chat')"><span class="metric-icon violet"><i data-lucide="message-circle"></i></span><strong>2</strong><small>Conversas pendentes</small><em>Ir para conversas <i data-lucide="arrow-up-right"></i></em></button>
-              <button onclick="switchAtendenteSession('agendados')"><span class="metric-icon amber"><i data-lucide="clock-3"></i></span><strong>1</strong><small>Próximo atendimento</small><em>09:30 · Ortopedia <i data-lucide="arrow-up-right"></i></em></button>
-            </div>
-            <div class="attendant-section-heading"><div><span class="eyebrow" id="queue-eyebrow">AGENDA DE HOJE</span><h2 id="queue-title">Pacientes agendados</h2><p id="queue-description">Clique em um paciente para abrir os detalhes e iniciar uma conversa.</p></div><input type="search" class="search-input" placeholder="Buscar paciente..." aria-label="Buscar paciente"></div>
-            <div class="attendant-patient-grid" id="attendant-patient-grid">
-              <button class="attendant-patient-card" data-name="Victor Santos" data-specialty="Cardiologia" data-convenio="Bradesco Saúde" data-age="27" data-status="Carteirinha vencida" data-avatar="VS" onclick="selectAtendentePatient(this)"><span class="patient-avatar">VS</span><span class="patient-card-main"><strong>Victor Santos</strong><small>Cardiologia · 09:30</small></span><span class="patient-card-status status-warning">Pendente</span><i data-lucide="chevron-right"></i></button>
-              <button class="attendant-patient-card" data-name="Mariana Costa" data-specialty="Dermatologia" data-convenio="Amil Saúde" data-age="31" data-status="Prontidão OK" data-avatar="MC" onclick="selectAtendentePatient(this)"><span class="patient-avatar green">MC</span><span class="patient-card-main"><strong>Mariana Costa</strong><small>Dermatologia · 10:15</small></span><span class="patient-card-status status-ready">Pronto</span><i data-lucide="chevron-right"></i></button>
-              <button class="attendant-patient-card" data-name="Lucas Moreira" data-specialty="Ortopedia" data-convenio="Unimed" data-age="42" data-status="Laudo pendente" data-avatar="LM" onclick="selectAtendentePatient(this)"><span class="patient-avatar orange">LM</span><span class="patient-card-main"><strong>Lucas Moreira</strong><small>Ortopedia · 11:00</small></span><span class="patient-card-status status-review">Em revisão</span><i data-lucide="chevron-right"></i></button>
-            </div>
-          </section>
-
-          <section class="attendant-chat-panel" id="attendant-chat-panel" hidden>
-            <header class="chat-panel-header"><button class="back-session" onclick="closeAtendenteChat()"><i data-lucide="arrow-left"></i> Voltar para agendados</button><div class="chat-patient-heading"><span class="patient-avatar" id="current-patient-avatar">VS</span><div><h2 id="current-patient-name">Victor Santos</h2><span id="current-patient-meta">Bradesco Saúde · 27 anos</span></div></div><button class="btn btn-outline btn-sm" onclick="openModal('modalIaCopilot')"><i data-lucide="bot"></i> Copilot IA</button></header>
-            <div class="chat-panel-body"><aside class="chat-patient-details"><span class="eyebrow">RESUMO DO PACIENTE</span><div><small>Consulta</small><strong>Cardiologia</strong></div><div><small>Data e horário</small><strong>15/09/2026 · 09:30</strong></div><div><small>Pagamento</small><strong>Convênio</strong></div><span class="status-online"><i data-lucide="circle"></i> WhatsApp ativo</span></aside><div class="chat-module"><div class="panel-title-row"><h3>Conversa</h3><span class="status-online"><i data-lucide="circle"></i> Online</span></div><div class="chat-history" id="chatHistory"><div class="message system-msg">Atendimento iniciado às 09:00.</div><div class="message patient-msg"><p>Olá, minha consulta é hoje às 09:30. Vocês receberam meu exame?</p><span class="time">09:15 · Paciente</span></div><div class="message atendente-msg"><p>Olá Victor, estamos verificando. Vou anexar o laudo e a receita atualizados por aqui.</p><span class="time">09:18 · Atendente</span></div></div><div class="chat-input-area"><button id="attach-doc-btn" type="button" class="btn btn-outline btn-sm"><i data-lucide="paperclip"></i> Anexo</button><textarea id="chat-input" rows="3" placeholder="Escreva uma mensagem..."></textarea><button id="chat-send-btn" class="btn btn-primary" type="button"><i data-lucide="send"></i> Enviar</button></div><input type="file" id="attachmentInput" accept=".pdf,image/*" hidden><div id="attachmentPreview" class="attachment-preview"></div></div></div>
-          </section>
+        <main class="reception-main">
+          <header class="reception-topbar"><div class="reception-search"><i data-lucide="search"></i><input placeholder="Buscar paciente, protocolo, CPF..." aria-label="Buscar paciente"></div><div class="reception-top-actions"><span><i data-lucide="calendar-days"></i><strong>15 de Setembro de 2026</strong><small>Terça-feira</small></span><span><i data-lucide="clock-3"></i><strong>09:32</strong></span><button><i data-lucide="bell"></i></button><button class="top-avatar">VS</button></div></header>
+          <div class="reception-layout">
+            <section class="reception-center"><div class="reception-metrics"><button><i data-lucide="calendar-check"></i><strong>6</strong><b>Agendados hoje</b><small>de 12 no total</small><em>›</em></button><button><i data-lucide="users"></i><strong>2</strong><b>Em atendimento</b><small>de 6 agendados</small><em>›</em></button><button><i data-lucide="clock-3"></i><strong>1</strong><b>Aguardando</b><small>na recepção</small><em>›</em></button><button><i data-lucide="circle-check"></i><strong>3</strong><b>Finalizados</b><small>hoje</small><em>›</em></button></div>
+              <div class="reception-table-card"><header><h2><i data-lucide="calendar-days"></i> Recepção - Pacientes do dia</h2><div><button>15/09/2026⌄</button><input placeholder="Filtrar por nome, protocolo ou CPF" /></div></header><div class="reception-table"><div class="reception-row reception-head"><span>Senha</span><span>Protocolo</span><span>Paciente</span><span>Convênio</span><span>Horário</span><span>Status</span><span>Ações</span></div><div class="reception-row"><strong>001<small class="pill green">Em atendimento</small></strong><span>PRT-00123</span><span class="table-patient">● <b>Ana Clara Souza</b><small>CPF 123.456.789-00</small></span><span>Unimed</span><span>09:00</span><span class="status-dot green-dot">Em atendimento</span><button>Ver detalhes</button></div><div class="reception-row"><strong>002<small class="pill blue">Aguardando</small></strong><span>PRT-00124</span><span class="table-patient">● <b>Bruno Lima</b><small>CPF 987.654.321-00</small></span><span>SulAmérica</span><span>09:30</span><span class="status-dot blue-dot">Aguardando</span><button>Ver detalhes</button></div><div class="reception-row"><strong>003<small class="pill green">Em atendimento</small></strong><span>PRT-00125</span><span class="table-patient">● <b>Carla Mendes</b><small>CPF 111.222.333-44</small></span><span>Amil</span><span>10:00</span><span class="status-dot green-dot">Em atendimento</span><button>Ver detalhes</button></div><div class="reception-row"><strong>004<small class="pill gray">Agendado</small></strong><span>PRT-00126</span><span class="table-patient">● <b>Lucas Pereira</b><small>CPF 555.666.777-88</small></span><span>Bradesco</span><span>10:30</span><span class="status-dot gray-dot">Agendado</span><button>Ver detalhes</button></div><div class="reception-row"><strong>005<small class="pill gray">Agendado</small></strong><span>PRT-00127</span><span class="table-patient">● <b>Mariana Costa</b><small>CPF 222.333.444-55</small></span><span>Amil</span><span>11:00</span><span class="status-dot gray-dot">Agendado</span><button>Ver detalhes</button></div></div><footer>Total de 6 pacientes <span>‹　<strong>1</strong>　›</span></footer></div></section>
+            <aside class="reception-chat"><header><h2><i data-lucide="message-square"></i> Chat</h2><small>Converse com a equipe</small><input placeholder="Buscar por nome ou setor..."></header><div class="reception-chat-list"><button><b>Equipe Geral</b><small>Todos os setores</small><em>3</em></button><button><b>Dra. Mariana Costa</b><small>Médica<br>Ok, vou verificar aqui...</small><time>09:28</time></button><button class="selected"><b>Carla Souza</b><small>Enfermagem<br>Já encaminhei o protocolo.</small><time>09:15</time></button><button><b>Recepção</b><small>Setor da recepção<br>Bom dia!</small><em>2</em></button><button><b>Financeiro</b><small>Pagamento confirmado.</small><time>08:45</time></button></div><div class="reception-chat-window"><header><span>CS</span><b>Carla Souza<small>Enfermagem</small></b></header><div class="bubble sent">Oi Carla, tudo bem?<br>O paciente da senha 003 já está em atendimento?<small>09:12 ✓✓</small></div><div class="bubble received">Oi Victor! Sim, já está com a Dra. Mariana. Qualquer coisa te aviso!<small>09:15</small></div><div class="bubble sent">Perfeito! Obrigado!<small>09:16 ✓✓</small></div><footer><input placeholder="Digite uma mensagem..."><button><i data-lucide="send"></i></button></footer></div></aside>
+          </div>
         </main>
       </div>
     </section>
