@@ -298,7 +298,7 @@
       </div>
     </section>
 
-    <section id="view-atendente-dash" class="view-section workspace-fullscreen-section">
+    <section id="view-atendente-dash" class="view-section workspace-fullscreen-section" data-session="inicio">
       <div class="workspace-container">
         <aside class="sidebar">
           <div class="logo">
@@ -306,11 +306,10 @@
             <span>Chega<b>Pronto</b></span>
           </div>
 
-          <div class="atendente-tabs" role="navigation" aria-label="Navegação do atendente">
-            <a href="#" class="atendente-tab"><i data-lucide="home" size="16"></i> Início</a>
-            <a href="#" class="atendente-tab"><i data-lucide="search" size="16"></i> Buscar</a>
-            <a href="#" class="atendente-tab"><i data-lucide="folder-kanban" size="16"></i> Projetos</a>
-            <a href="#" class="atendente-tab active"><i data-lucide="messages-square" size="16"></i> Chat <span class="tab-count">3</span></a>
+          <div class="atendente-tabs" role="navigation" aria-label="Sessões do atendente">
+            <a href="#" class="atendente-tab active" data-session="inicio" onclick="switchAtendenteSession('inicio'); return false;"><i data-lucide="home" size="16"></i> Início</a>
+            <a href="#" class="atendente-tab" data-session="agendados" onclick="switchAtendenteSession('agendados'); return false;"><i data-lucide="calendar-days" size="16"></i> Agendados do dia <span class="tab-count">3</span></a>
+            <a href="#" class="atendente-tab" data-session="chat" onclick="switchAtendenteSession('chat'); return false;"><i data-lucide="messages-square" size="16"></i> Chat <span class="tab-count">3</span></a>
           </div>
 
           <div class="dash-mini">
@@ -327,8 +326,9 @@
         <section class="patient-queue">
           <div class="queue-header">
             <div>
-              <span class="hero-label">ATENDIMENTO</span>
-              <h2>Conversas de hoje <span class="queue-count">3</span></h2>
+              <span class="hero-label" id="queue-eyebrow">INÍCIO</span>
+              <h2 id="queue-title">Visão geral do atendimento</h2>
+              <p class="session-description" id="queue-description">Acompanhe sua operação e escolha uma sessão para começar.</p>
             </div>
             <input type="text" placeholder="Buscar paciente..." class="search-input">
           </div>

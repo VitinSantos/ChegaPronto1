@@ -165,8 +165,16 @@ function handleLogin(e) {
 
   } else {
     navLinks.innerHTML = `
-      <button class="nav-btn" onclick="navigate('atendente-dash')">
-        Central de Prontidão
+      <button class="nav-btn" onclick="switchAtendenteSession('inicio')">
+        Início
+      </button>
+
+      <button class="nav-btn" onclick="switchAtendenteSession('agendados')">
+        Agendados do dia
+      </button>
+
+      <button class="nav-btn" onclick="switchAtendenteSession('chat')">
+        Chat
       </button>
 
       <button class="nav-btn" onclick="logout()">
@@ -175,7 +183,33 @@ function handleLogin(e) {
     `;
 
     navigate('atendente-dash');
+    switchAtendenteSession('inicio');
   }
+}
+
+function switchAtendenteSession(session) {
+  const dashboard = document.getElementById('view-atendente-dash');
+  if (!dashboard) return;
+
+  dashboard.dataset.session = session;
+
+  document.querySelectorAll('.atendente-tab').forEach(tab => {
+    tab.classList.toggle('active', tab.dataset.session === session);
+  });
+
+  const eyebrow = document.getElementById('queue-eyebrow');
+  const title = document.getElementById('queue-title');
+  const description = document.getElementById('queue-description');
+
+  const copy = {
+    inicio: ['INÍCIO', 'Visão geral do atendimento', 'Acompanhe sua operação e escolha uma sessão para começar.'],
+    agendados: ['AGENDA', 'Agendados do dia', 'Selecione um paciente para consultar os dados e iniciar uma conversa.'],
+    chat: ['CHAT', 'Conversas de hoje', 'Continue os atendimentos recentes com seus pacientes.']
+  }[session];
+
+  if (eyebrow) eyebrow.textContent = copy[0];
+  if (title) title.innerHTML = `${copy[1]}${session !== 'inicio' ? ' <span class="queue-count">3</span>' : ''}`;
+  if (description) description.textContent = copy[2];
 }
 
 function navigate(viewId) {
