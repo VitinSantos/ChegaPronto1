@@ -164,6 +164,7 @@ function handleLogin(e) {
     navigate('paciente-dash');
 
   } else {
+    document.getElementById('appHeader').style.display = 'none';
     navLinks.innerHTML = `
       <button class="nav-btn" onclick="switchAtendenteSession('inicio')">
         Início
@@ -192,24 +193,34 @@ function switchAtendenteSession(session) {
   if (!dashboard) return;
 
   dashboard.dataset.session = session;
-
-  document.querySelectorAll('.atendente-tab').forEach(tab => {
-    tab.classList.toggle('active', tab.dataset.session === session);
+  document.querySelectorAll('.attendant-nav-item[data-session]').forEach(item => {
+    item.classList.toggle('is-active', item.dataset.session === session);
   });
 
+  const title = document.getElementById('attendant-title');
   const eyebrow = document.getElementById('queue-eyebrow');
-  const title = document.getElementById('queue-title');
+  const queueTitle = document.getElementById('queue-title');
   const description = document.getElementById('queue-description');
+  const welcome = document.getElementById('attendant-welcome');
+  const metrics = document.querySelector('.attendant-metrics');
+  const grid = document.getElementById('attendant-patient-grid');
+  const chat = document.getElementById('attendant-chat-panel');
+
+  if (chat) chat.hidden = session !== 'chat' || !chat.classList.contains('has-patient');
+  if (welcome) welcome.hidden = session !== 'inicio';
+  if (metrics) metrics.hidden = session !== 'inicio';
+  if (grid) grid.hidden = session === 'inicio';
 
   const copy = {
-    inicio: ['INÍCIO', 'Visão geral do atendimento', 'Acompanhe sua operação e escolha uma sessão para começar.'],
-    agendados: ['AGENDA', 'Agendados do dia', 'Selecione um paciente para consultar os dados e iniciar uma conversa.'],
-    chat: ['CHAT', 'Conversas de hoje', 'Continue os atendimentos recentes com seus pacientes.']
+    inicio: ['Bom dia, equipe', 'AGENDA DE HOJE', 'Pacientes agendados', 'Clique em um paciente para abrir os detalhes e iniciar uma conversa.'],
+    agendados: ['Agenda do dia', 'AGENDA DE HOJE', 'Pacientes agendados', 'Clique em um paciente para abrir os detalhes e iniciar uma conversa.'],
+    chat: ['Conversas', 'CONVERSAS', 'Escolha um paciente', 'Selecione um agendamento para abrir o histórico da conversa.']
   }[session];
 
-  if (eyebrow) eyebrow.textContent = copy[0];
-  if (title) title.innerHTML = `${copy[1]}${session !== 'inicio' ? ' <span class="queue-count">3</span>' : ''}`;
-  if (description) description.textContent = copy[2];
+  if (title) title.textContent = copy[0];
+  if (eyebrow) eyebrow.textContent = copy[1];
+  if (queueTitle) queueTitle.textContent = copy[2];
+  if (description) description.textContent = copy[3];
 }
 
 function navigate(viewId) {
@@ -322,12 +333,20 @@ function updateCopilotInsights(
 
 function selectAtendentePatient(card) {
   document
-    .querySelectorAll('.patient-card')
-    .forEach(item => item.classList.remove('active'));
+    .querySelectorAll('.attendant-patient-card')
+    .forEach(item => item.classList.remove('is-selected'));
 
-  card.classList.add('active');
-  const workspace = document.querySelector('.patient-workspace');
-  if (workspace) workspace.classList.add('is-open');
+  card.classList.add('is-selected');
+  const workspace = document.getElementById('attendant-chat-panel');
+  if (workspace) {
+    workspace.classList.add('has-patient');
+    workspace.hidden = false;
+  }
+  const dashboard = document.getElementById('view-atendente-dash');
+  if (dashboard) dashboard.dataset.session = 'chat';
+  document.querySelectorAll('.attendant-nav-item[data-session]').forEach(item => {
+    item.classList.toggle('is-active', item.dataset.session === 'chat');
+  });
 
   const name =
     card.dataset.name || 'Paciente';
@@ -414,8 +433,12 @@ function selectAtendentePatient(card) {
 }
 
 function closeAtendenteChat() {
-  const workspace = document.querySelector('.patient-workspace');
-  if (workspace) workspace.classList.remove('is-open');
+  const workspace = document.getElementById('attendant-chat-panel');
+  if (workspace) {
+    workspace.classList.remove('has-patient');
+    workspace.hidden = true;
+  }
+  switchAtendenteSession('agendados');
 }
 
 function sendAtendenteMessage() {

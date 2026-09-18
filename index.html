@@ -298,135 +298,46 @@
       </div>
     </section>
 
-    <section id="view-atendente-dash" class="view-section workspace-fullscreen-section" data-session="inicio">
-      <div class="workspace-container">
-        <aside class="sidebar">
-          <div class="logo">
-            <img src="img/logo.jpeg" alt="ChegaPronto" class="brand-logo-image sidebar-logo" />
-            <span>Chega<b>Pronto</b></span>
-          </div>
-
-          <div class="atendente-tabs" role="navigation" aria-label="Sessões do atendente">
-            <a href="#" class="atendente-tab active" data-session="inicio" onclick="switchAtendenteSession('inicio'); return false;"><i data-lucide="home" size="16"></i> Início</a>
-            <a href="#" class="atendente-tab" data-session="agendados" onclick="switchAtendenteSession('agendados'); return false;"><i data-lucide="calendar-days" size="16"></i> Agendados do dia <span class="tab-count">3</span></a>
-            <a href="#" class="atendente-tab" data-session="chat" onclick="switchAtendenteSession('chat'); return false;"><i data-lucide="messages-square" size="16"></i> Chat <span class="tab-count">3</span></a>
-          </div>
-
-          <div class="dash-mini">
-            <div class="dash-item info"><i data-lucide="calendar" size="14"></i> 3 agendados</div>
-            <div class="dash-item success"><i data-lucide="check-circle" size="14"></i> 1 pronto</div>
-            <div class="dash-item warning"><i data-lucide="alert-triangle" size="14"></i> 1 pendência</div>
-          </div>
-
-          <nav class="menu-lateral">
-            <a href="#" onclick="navigate('paciente-dash')"><i data-lucide="log-out" size="16"></i> Voltar ao Portal</a>
+    <section id="view-atendente-dash" class="view-section workspace-fullscreen-section attendant-screen">
+      <div class="attendant-app">
+        <aside class="attendant-rail">
+          <div class="attendant-brand"><img src="img/logo.jpeg" alt="ChegaPronto" /></div>
+          <nav class="attendant-nav" aria-label="Sessões do atendente">
+            <button class="attendant-nav-item is-active" data-session="inicio" onclick="switchAtendenteSession('inicio')"><i data-lucide="layout-dashboard"></i><span>Início</span></button>
+            <button class="attendant-nav-item" data-session="agendados" onclick="switchAtendenteSession('agendados')"><i data-lucide="calendar-days"></i><span>Agendados</span><b>3</b></button>
+            <button class="attendant-nav-item" data-session="chat" onclick="switchAtendenteSession('chat')"><i data-lucide="message-square-text"></i><span>Conversas</span><b>2</b></button>
           </nav>
+          <div class="attendant-rail-bottom"><button class="attendant-nav-item" onclick="navigate('paciente-dash')"><i data-lucide="log-out"></i><span>Sair</span></button></div>
         </aside>
 
-        <section class="patient-queue">
-          <div class="queue-header">
-            <div>
-              <span class="hero-label" id="queue-eyebrow">INÍCIO</span>
-              <h2 id="queue-title">Visão geral do atendimento</h2>
-              <p class="session-description" id="queue-description">Acompanhe sua operação e escolha uma sessão para começar.</p>
-            </div>
-            <input type="text" placeholder="Buscar paciente..." class="search-input">
-          </div>
-
-          <div class="patient-list">
-            <div class="patient-card active" data-name="Victor Santos" data-specialty="Cardiologia" data-convenio="Bradesco Saúde" data-age="27" data-status="Carteirinha vencida" data-avatar="VS">
-              <div class="patient-info">
-                <strong>Victor Santos</strong>
-                <span>Cardiologia · Bradesco</span>
-              </div>
-              <span class="status-badge status-warning">Pendente</span>
-            </div>
-
-            <div class="patient-card" data-name="Mariana Costa" data-specialty="Dermatologia" data-convenio="Amil Saúde" data-age="31" data-status="Prontidão OK" data-avatar="MC">
-              <div class="patient-info">
-                <strong>Mariana Costa</strong>
-                <span>Dermatologia · Amil</span>
-              </div>
-              <span class="status-badge status-ready">Pronto</span>
-            </div>
-
-            <div class="patient-card" data-name="Lucas Moreira" data-specialty="Ortopedia" data-convenio="Unimed" data-age="42" data-status="Laudo pendente" data-avatar="LM">
-              <div class="patient-info">
-                <strong>Lucas Moreira</strong>
-                <span>Ortopedia · Unimed</span>
-              </div>
-              <span class="status-badge status-review">Em revisão</span>
-            </div>
-          </div>
-        </section>
-
-        <main class="patient-workspace">
-          <header class="workspace-header">
-            <div class="patient-profile">
-              <div class="avatar" id="current-patient-avatar">VS</div>
-              <div class="details">
-                <h3 id="current-patient-name">Victor Santos</h3>
-                <span id="current-patient-meta">Convênio: Bradesco Saúde • 27 anos • <strong class="text-danger">Carteirinha Vencida</strong></span>
-              </div>
-            </div>
-
-            <div class="workspace-actions">
-              <button class="btn btn-ghost btn-sm close-chat-btn" type="button" onclick="closeAtendenteChat()" aria-label="Fechar atendimento">Voltar à fila</button>
-              <button class="btn btn-outline btn-sm" type="button" onclick="openModal('modalIaCopilot')">
-                <i data-lucide="bot" size="16"></i> Copilot IA
-              </button>
-            </div>
+        <main class="attendant-main">
+          <header class="attendant-topbar">
+            <div><span class="eyebrow">CENTRAL DE ATENDIMENTO</span><h1 id="attendant-title">Bom dia, equipe</h1></div>
+            <div class="attendant-user"><span class="attendant-user-avatar">AC</span><span><strong>Atendimento Central</strong><small>Online agora</small></span></div>
           </header>
 
-          <div class="workspace-body">
-            <div class="patient-summary">
-              <div class="summary-item">
-                <span class="summary-label">Consulta</span>
-                <strong>Ortopedia</strong>
-              </div>
-              <div class="summary-item">
-                <span class="summary-label">Data</span>
-                <strong>15/09/2026</strong>
-              </div>
-              <div class="summary-item">
-                <span class="summary-label">Horário</span>
-                <strong>09:30</strong>
-              </div>
-              <div class="summary-item">
-                <span class="summary-label">Pagamento</span>
-                <strong>Convênio</strong>
-              </div>
+          <section class="attendant-content" id="attendant-content">
+            <div class="attendant-welcome" id="attendant-welcome">
+              <div><span class="eyebrow">VISÃO GERAL</span><h2>O que precisa da sua atenção hoje?</h2><p>Escolha uma sessão para acompanhar os pacientes e continuar os atendimentos.</p></div>
+              <div class="attendant-date"><i data-lucide="calendar"></i><span>Hoje, 15 de setembro de 2026</span></div>
             </div>
-
-            <div class="chat-module">
-              <div class="panel-title-row">
-                <h3>Atendimento</h3>
-                <span class="status-online"><i data-lucide="circle" size="8"></i> WhatsApp ativo</span>
-              </div>
-
-              <div class="chat-history" id="chatHistory">
-                <div class="message system-msg">Atendimento iniciado às 09:00.</div>
-                <div class="message patient-msg">
-                  <p>Olá, minha consulta é hoje às 09:30. Vocês receberam meu exame?</p>
-                  <span class="time">09:15 · Paciente</span>
-                </div>
-                <div class="message atendente-msg">
-                  <p>Olá Victor, estamos verificando. Vou anexar o laudo e a receita atualizados por aqui.</p>
-                  <span class="time">09:18 · Atendente</span>
-                </div>
-              </div>
-
-              <div class="chat-input-area">
-                <button id="attach-doc-btn" type="button" class="btn btn-outline btn-sm">
-                  <i data-lucide="paperclip" size="14"></i> Anexo
-                </button>
-                <textarea id="chat-input" rows="3" placeholder="Digite uma mensagem para o paciente..."></textarea>
-                <button id="chat-send-btn" class="btn btn-primary" type="button"><i data-lucide="send" size="16"></i> Enviar</button>
-              </div>
-              <input type="file" id="attachmentInput" accept=".pdf,image/*" hidden>
-              <div id="attachmentPreview" class="attachment-preview"></div>
+            <div class="attendant-metrics">
+              <button onclick="switchAtendenteSession('agendados')"><span class="metric-icon blue"><i data-lucide="calendar-check"></i></span><strong>3</strong><small>Agendados hoje</small><em>Ver agenda <i data-lucide="arrow-up-right"></i></em></button>
+              <button onclick="switchAtendenteSession('chat')"><span class="metric-icon violet"><i data-lucide="message-circle"></i></span><strong>2</strong><small>Conversas pendentes</small><em>Ir para conversas <i data-lucide="arrow-up-right"></i></em></button>
+              <button onclick="switchAtendenteSession('agendados')"><span class="metric-icon amber"><i data-lucide="clock-3"></i></span><strong>1</strong><small>Próximo atendimento</small><em>09:30 · Ortopedia <i data-lucide="arrow-up-right"></i></em></button>
             </div>
-          </div>
+            <div class="attendant-section-heading"><div><span class="eyebrow" id="queue-eyebrow">AGENDA DE HOJE</span><h2 id="queue-title">Pacientes agendados</h2><p id="queue-description">Clique em um paciente para abrir os detalhes e iniciar uma conversa.</p></div><input type="search" class="search-input" placeholder="Buscar paciente..." aria-label="Buscar paciente"></div>
+            <div class="attendant-patient-grid" id="attendant-patient-grid">
+              <button class="attendant-patient-card" data-name="Victor Santos" data-specialty="Cardiologia" data-convenio="Bradesco Saúde" data-age="27" data-status="Carteirinha vencida" data-avatar="VS" onclick="selectAtendentePatient(this)"><span class="patient-avatar">VS</span><span class="patient-card-main"><strong>Victor Santos</strong><small>Cardiologia · 09:30</small></span><span class="patient-card-status status-warning">Pendente</span><i data-lucide="chevron-right"></i></button>
+              <button class="attendant-patient-card" data-name="Mariana Costa" data-specialty="Dermatologia" data-convenio="Amil Saúde" data-age="31" data-status="Prontidão OK" data-avatar="MC" onclick="selectAtendentePatient(this)"><span class="patient-avatar green">MC</span><span class="patient-card-main"><strong>Mariana Costa</strong><small>Dermatologia · 10:15</small></span><span class="patient-card-status status-ready">Pronto</span><i data-lucide="chevron-right"></i></button>
+              <button class="attendant-patient-card" data-name="Lucas Moreira" data-specialty="Ortopedia" data-convenio="Unimed" data-age="42" data-status="Laudo pendente" data-avatar="LM" onclick="selectAtendentePatient(this)"><span class="patient-avatar orange">LM</span><span class="patient-card-main"><strong>Lucas Moreira</strong><small>Ortopedia · 11:00</small></span><span class="patient-card-status status-review">Em revisão</span><i data-lucide="chevron-right"></i></button>
+            </div>
+          </section>
+
+          <section class="attendant-chat-panel" id="attendant-chat-panel" hidden>
+            <header class="chat-panel-header"><button class="back-session" onclick="closeAtendenteChat()"><i data-lucide="arrow-left"></i> Voltar para agendados</button><div class="chat-patient-heading"><span class="patient-avatar" id="current-patient-avatar">VS</span><div><h2 id="current-patient-name">Victor Santos</h2><span id="current-patient-meta">Bradesco Saúde · 27 anos</span></div></div><button class="btn btn-outline btn-sm" onclick="openModal('modalIaCopilot')"><i data-lucide="bot"></i> Copilot IA</button></header>
+            <div class="chat-panel-body"><aside class="chat-patient-details"><span class="eyebrow">RESUMO DO PACIENTE</span><div><small>Consulta</small><strong>Cardiologia</strong></div><div><small>Data e horário</small><strong>15/09/2026 · 09:30</strong></div><div><small>Pagamento</small><strong>Convênio</strong></div><span class="status-online"><i data-lucide="circle"></i> WhatsApp ativo</span></aside><div class="chat-module"><div class="panel-title-row"><h3>Conversa</h3><span class="status-online"><i data-lucide="circle"></i> Online</span></div><div class="chat-history" id="chatHistory"><div class="message system-msg">Atendimento iniciado às 09:00.</div><div class="message patient-msg"><p>Olá, minha consulta é hoje às 09:30. Vocês receberam meu exame?</p><span class="time">09:15 · Paciente</span></div><div class="message atendente-msg"><p>Olá Victor, estamos verificando. Vou anexar o laudo e a receita atualizados por aqui.</p><span class="time">09:18 · Atendente</span></div></div><div class="chat-input-area"><button id="attach-doc-btn" type="button" class="btn btn-outline btn-sm"><i data-lucide="paperclip"></i> Anexo</button><textarea id="chat-input" rows="3" placeholder="Escreva uma mensagem..."></textarea><button id="chat-send-btn" class="btn btn-primary" type="button"><i data-lucide="send"></i> Enviar</button></div><input type="file" id="attachmentInput" accept=".pdf,image/*" hidden><div id="attachmentPreview" class="attachment-preview"></div></div></div>
+          </section>
         </main>
       </div>
     </section>
